@@ -380,18 +380,16 @@ function GateScreen({ onSubmit, onSkip }) {
     // In GHL: Automations → New Workflow → Trigger: Webhook → copy the URL.
     // The payload keys (firstName, email) map to GHL contact fields automatically.
     // ────────────────────────────────────────────────────────────────────────
-    const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/SXZsRYccqvOTTXIArD1s/webhook-trigger/f035540c-6c3e-40d8-9b60-571c08f09105"; // ← swap this
+   jsconst GHL_WEBHOOK_URL = "https://link.flowi.io/widget/form/2GwElu5DXX5nfWoGqEBY";
 
     try {
       await fetch(GHL_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          firstName: name,
-          email: email,
-          source: "GLP1 Plateau Quiz",
-          tags: ["quiz-lead", "glp1-plateau"],
-        }),
+  first_name: name,
+  email: email,
+}),
       });
     } catch (err) {
       // Fail silently — still show results
