@@ -383,17 +383,16 @@ function GateScreen({ onSubmit, onSkip }) {
    const GHL_WEBHOOK_URL = "https://link.flowi.io/widget/form/2GwElu5DXX5nfWoGqEBY";
 
     try {
-      await fetch(GHL_WEBHOOK_URL, {
-  method: "POST",
-  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  body: new URLSearchParams({
-    first_name: name,
-    email: email,
-  }),
-});
+      const params = new URLSearchParams({
+        first_name: name,
+        email: email,
+      });
+      await fetch(`${GHL_WEBHOOK_URL}?${params.toString()}`, {
+        method: "GET",
+        mode: "no-cors",
+      });
     } catch (err) {
-      // Fail silently — still show results
-      console.warn("GHL webhook error:", err);
+      console.warn("GHL form error:", err);
     }
 
     setLoading(false);
