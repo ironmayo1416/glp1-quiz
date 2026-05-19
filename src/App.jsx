@@ -380,7 +380,7 @@ function GateScreen({ onSubmit, onSkip }) {
     // In GHL: Automations → New Workflow → Trigger: Webhook → copy the URL.
     // The payload keys (firstName, email) map to GHL contact fields automatically.
     // ────────────────────────────────────────────────────────────────────────
-    const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/SXZsRYccqvOTTXIArD1s/webhook-trigger/09051107-d571-45f9-937b-fd76c6e9ddfa"; // ← swap this
+    const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/SXZsRYccqvOTTXIArD1s/webhook-trigger/f035540c-6c3e-40d8-9b60-571c08f09105"; // ← swap this
 
     try {
       await fetch(GHL_WEBHOOK_URL, {
