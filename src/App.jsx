@@ -384,13 +384,13 @@ function GateScreen({ onSubmit, onSkip }) {
 
     try {
       await fetch(GHL_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-  first_name: name,
-  email: email,
-}),
-      });
+  method: "POST",
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: new URLSearchParams({
+    first_name: name,
+    email: email,
+  }),
+});
     } catch (err) {
       // Fail silently — still show results
       console.warn("GHL webhook error:", err);
