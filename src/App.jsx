@@ -251,7 +251,7 @@ export default function App() {
   function handleSelect(opt) { setAnswers((prev) => ({ ...prev, [step]: opt })); }
   function handleNext() {
     if (!answers[step]) return;
-    if (step === total - 1) { setPhase("gate"); }; } 
+    if (step === total - 1) { setPhase("gate"); } else { setStep((s) => s + 1); }
   }
   function handleBack() { if (step > 0) setStep((s) => s - 1); }
   function showResult(info) {
