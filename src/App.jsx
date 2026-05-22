@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { QUESTIONS, RESULT_TYPES, calcResult } from "./quizData";
- 
+
 const S = {
   page: { minHeight: "100vh", background: "#F7F5F0", display: "flex", flexDirection: "column", alignItems: "center", padding: "0 1rem 4rem" },
   header: { width: "100%", maxWidth: 680, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.5rem 0 0", marginBottom: "2rem" },
@@ -9,7 +9,7 @@ const S = {
   sans: { fontFamily: "'DM Sans', sans-serif" },
   green: "#0F6E56", greenLight: "#E1F5EE", greenDark: "#085041", stone: "#F7F5F0", ink: "#1A1A1A", muted: "#6B6860", faint: "#A8A49E",
 };
- 
+
 function Header({ step, total }) {
   return (
     <div style={S.header}>
@@ -29,7 +29,7 @@ function Header({ step, total }) {
     </div>
   );
 }
- 
+
 function ProgressBar({ pct }) {
   return (
     <div style={{ height: 3, background: "#E8E6E1", borderRadius: 2, marginBottom: "2rem", overflow: "hidden" }}>
@@ -37,7 +37,7 @@ function ProgressBar({ pct }) {
     </div>
   );
 }
- 
+
 function IntroScreen({ onStart }) {
   return (
     <div style={S.card}>
@@ -67,7 +67,7 @@ function IntroScreen({ onStart }) {
     </div>
   );
 }
- 
+
 function QuestionScreen({ question, stepNum, total, selected, onSelect, onNext, onBack }) {
   const pct = Math.round((stepNum / total) * 100);
   return (
@@ -94,92 +94,7 @@ function QuestionScreen({ question, stepNum, total, selected, onSelect, onNext, 
     </div>
   );
 }
- 
-function GateScreen({ onSubmit }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
- 
- const handleSubmit = async () => {
-    if (!email) return;
-    setLoading(true);
 
-    try {
-      await fetch("https://backend.leadconnectorhq.com/forms/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          formId: "2GwElu5DXX5nfWoGqEBY",
-          locationId: "SXZsRYccqvOTTXIArD1s",
-          first_name: name,
-          email: email,
-        }),
-      });
-    } catch (err) {
-      console.warn("Form error:", err);
-    }
-
-    setLoading(false);
-    onSubmit({ name, email });
-  };
- 
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = GHL_FORM_URL;
-      form.target = "hidden_iframe";
-      form.style.display = "none";
- 
-      [["first_name", name], ["email", email]].forEach(([key, value]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value;
-        form.appendChild(input);
-      });
- 
-      document.body.appendChild(form);
-      form.submit();
- 
-      setTimeout(() => {
-        try { document.body.removeChild(form); document.body.removeChild(iframe); } catch(e) {}
-      }, 3000);
-    } catch (err) {
-      console.warn("Form error:", err);
-    }
- 
-    setLoading(false);
-    onSubmit({ name, email });
-  };
- 
-  const inputStyle = { width: "100%", padding: "0.75rem 1rem", fontSize: 15, border: "1.5px solid #E8E6E1", borderRadius: 8, fontFamily: "'DM Sans', sans-serif", background: "#FAFAF8", color: S.ink, outline: "none" };
- 
-  return (
-    <div style={S.card}>
-      <ProgressBar pct={100} />
-      <div style={{ textAlign: "center" }}>
-        <div style={{ width: 56, height: 56, borderRadius: "50%", background: S.greenLight, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem" }}>
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-            <path d="M9 12l2 2 4-4" stroke={S.green} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx="12" cy="12" r="9" stroke={S.green} strokeWidth="1.5" />
-          </svg>
-        </div>
-        <h2 style={{ ...S.serif, fontSize: "clamp(22px, 4vw, 28px)", color: S.ink, marginBottom: "0.6rem", fontWeight: 400 }}>Your results are ready</h2>
-        <p style={{ fontSize: 15, color: S.muted, lineHeight: 1.65, maxWidth: 380, margin: "0 auto 2rem" }}>
-          Enter your name and email to see your plateau type, what's driving it, and your personalized 3-step protocol.
-        </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 360, margin: "0 auto" }}>
-          <input style={inputStyle} type="text" placeholder="First name" value={name} onChange={(e) => setName(e.target.value)} />
-          <input style={inputStyle} type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSubmit()} />
-          <button onClick={handleSubmit} disabled={!email || loading} style={{ width: "100%", padding: "0.85rem", background: email ? S.green : "#E8E6E1", color: email ? "white" : S.faint, border: "none", borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: email ? "pointer" : "default", fontFamily: "'DM Sans', sans-serif", marginTop: 4 }}>
-            {loading ? "Sending…" : "Show My Results →"}
-          </button>
-        </div>
-        <p style={{ fontSize: 11, color: S.faint, marginTop: "1rem" }}>No spam. Unsubscribe anytime. Your info stays private.</p>
-      </div>
-    </div>
-  );
-}
- 
 function ScoreBar({ label, pct, isWinner, color }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
@@ -191,19 +106,18 @@ function ScoreBar({ label, pct, isWinner, color }) {
     </div>
   );
 }
- 
+
 function ResultScreen({ result, totals, userName, onRestart }) {
   const t = RESULT_TYPES[result];
   const maxScore = Math.max(...Object.values(totals));
   const typeLabels = { A: "Metabolic Slowdown", B: "Metabolic Window", C: "Muscle Loss", D: "Lifestyle Interference" };
-  const greeting = userName ? `${userName}, you're in the ` : "You're in the ";
- 
+
   return (
     <div style={{ width: "100%", maxWidth: 640 }}>
       <div style={{ ...S.card, borderTop: `4px solid ${t.borderColor}`, marginBottom: "1.25rem" }}>
         <div style={{ display: "inline-block", background: t.bgLight, color: t.color, fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", padding: "4px 10px", borderRadius: 6, marginBottom: "1rem" }}>Your plateau type</div>
         <h2 style={{ ...S.serif, fontSize: "clamp(22px, 5vw, 30px)", color: S.ink, lineHeight: 1.25, marginBottom: "0.4rem", fontWeight: 400 }}>
-          {greeting}<span style={{ color: t.color }}>{t.label}</span>
+          You're in the <span style={{ color: t.color }}>{t.label}</span>
         </h2>
         <p style={{ fontSize: 15, color: S.muted, fontStyle: "italic", marginBottom: "1.25rem" }}>{t.subtitle}</p>
         <p style={{ fontSize: 15, color: S.muted, lineHeight: 1.75, marginBottom: "1.5rem" }}>{t.description}</p>
@@ -215,7 +129,7 @@ function ResultScreen({ result, totals, userName, onRestart }) {
           })}
         </div>
       </div>
- 
+
       <div style={{ ...S.card, marginBottom: "1.25rem" }}>
         <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: S.muted, marginBottom: "1.25rem" }}>Your 3-step protocol</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -233,7 +147,7 @@ function ResultScreen({ result, totals, userName, onRestart }) {
           <strong style={{ fontWeight: 600 }}>Note: </strong>{t.urgency}
         </div>
       </div>
- 
+
       <div style={{ ...S.card, background: S.greenDark, marginBottom: "1rem" }}>
         <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: "0.75rem" }}>Ready to fix this in 12 weeks?</div>
         <h3 style={{ ...S.serif, fontSize: "clamp(18px, 4vw, 22px)", color: "white", lineHeight: 1.3, marginBottom: "0.75rem", fontWeight: 400 }}>The GLP-1 Metabolic Rebuild Program is built specifically for your plateau type.</h3>
@@ -243,46 +157,42 @@ function ResultScreen({ result, totals, userName, onRestart }) {
         </a>
         <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", textAlign: "center", marginTop: "0.75rem" }}>No obligation. 30-minute call. Spots are limited.</p>
       </div>
- 
+
       <div style={{ textAlign: "center" }}>
         <button onClick={onRestart} style={{ background: "none", border: "none", color: S.faint, fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", textDecoration: "underline" }}>Start over</button>
       </div>
     </div>
   );
 }
- 
+
 export default function App() {
   const [phase, setPhase] = useState("intro");
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [resultData, setResultData] = useState(null);
-  const [userName, setUserName] = useState("");
   const total = QUESTIONS.length;
- 
+
   function handleStart() { setPhase("quiz"); setStep(0); }
   function handleSelect(opt) { setAnswers((prev) => ({ ...prev, [step]: opt })); }
   function handleNext() {
     if (!answers[step]) return;
-    if (step === total - 1) { setPhase("gate"); } else { setStep((s) => s + 1); }
+    if (step === total - 1) { showResult(); } else { setStep((s) => s + 1); }
   }
   function handleBack() { if (step > 0) setStep((s) => s - 1); }
-  function showResult(info) {
-    if (info?.name) setUserName(info.name);
+  function showResult() {
     const { winner, totals } = calcResult(answers);
     setResultData({ winner, totals });
     setPhase("result");
   }
-  function handleRestart() { setPhase("intro"); setStep(0); setAnswers({}); setResultData(null); setUserName(""); }
- 
+  function handleRestart() { setPhase("intro"); setStep(0); setAnswers({}); setResultData(null); }
+
   return (
     <div style={S.page}>
-      <Header step={phase === "quiz" ? step + 1 : phase === "gate" ? total : 0} total={total} />
+      <Header step={phase === "quiz" ? step + 1 : 0} total={total} />
       {phase === "intro" && <IntroScreen onStart={handleStart} />}
       {phase === "quiz" && <QuestionScreen question={QUESTIONS[step]} stepNum={step + 1} total={total} selected={answers[step] || null} onSelect={handleSelect} onNext={handleNext} onBack={handleBack} />}
-      {phase === "gate" && <GateScreen onSubmit={(info) => showResult(info)} />}
-      {phase === "result" && resultData && <ResultScreen result={resultData.winner} totals={resultData.totals} userName={userName} onRestart={handleRestart} />}
+      {phase === "result" && resultData && <ResultScreen result={resultData.winner} totals={resultData.totals} onRestart={handleRestart} />}
       <div style={{ marginTop: "3rem", fontSize: 12, color: S.faint, textAlign: "center" }}>© {new Date().getFullYear()} Dr. JJ Mayo · GLP-1 Metabolic Rebuild</div>
     </div>
   );
 }
- 
