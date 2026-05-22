@@ -100,16 +100,28 @@ function GateScreen({ onSubmit }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
  
-  const handleSubmit = () => {
+ const handleSubmit = async () => {
     if (!email) return;
     setLoading(true);
- 
+
     try {
-      const GHL_FORM_URL = "https://link.flowi.io/widget/form/2GwElu5DXX5nfWoGqEBY";
-      const iframe = document.createElement("iframe");
-      iframe.name = "hidden_iframe";
-      iframe.style.display = "none";
-      document.body.appendChild(iframe);
+      await fetch("https://backend.leadconnectorhq.com/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formId: "2GwElu5DXX5nfWoGqEBY",
+          locationId: "SXZsRYccqvOTTXIArD1s",
+          first_name: name,
+          email: email,
+        }),
+      });
+    } catch (err) {
+      console.warn("Form error:", err);
+    }
+
+    setLoading(false);
+    onSubmit({ name, email });
+  };
  
       const form = document.createElement("form");
       form.method = "POST";
