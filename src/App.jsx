@@ -152,7 +152,7 @@ function ResultScreen({ result, totals, userName, onRestart }) {
         <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: "0.75rem" }}>Ready to fix your weight loss stall?</div>
         <h3 style={{ ...S.serif, fontSize: "clamp(18px, 4vw, 22px)", color: "white", lineHeight: 1.3, marginBottom: "0.75rem", fontWeight: 400 }}>The GLP-1 Metabolic Rebuild Program is built specifically for your plateau type.</h3>
         <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", lineHeight: 1.65, marginBottom: "1.5rem" }}>Dr. JJ Mayo helps GLP-1 users over 40 break through their plateau — losing fat, protecting muscle, and getting confident about how to eat and move on medication. Real results, not generic advice.</p>
-        <a href="https://jjmayo.com/bookacall" target="_blank" rel="noreferrer" style={{ display: "block", width: "100%", textAlign: "center", padding: "0.9rem", background: "#10B981", color: "white", border: "none", borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", textDecoration: "none" }}>
+        <a href="https://jjmayo.com/apply" target="_blank" rel="noreferrer" style={{ display: "block", width: "100%", textAlign: "center", padding: "0.9rem", background: "#10B981", color: "white", border: "none", borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", textDecoration: "none" }}>
           Apply For My GLP-1 Coaching Program  →
         </a>
         <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", textAlign: "center", marginTop: "0.75rem" }}>Apply for coaching. 30-minute call. Spots are limited.</p>
